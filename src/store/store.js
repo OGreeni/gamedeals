@@ -1,10 +1,8 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const initialState = { userInput: '' };
-
-const mainFormSlice = createSlice({
-  name: 'main form',
-  initialState,
+const dealsSlice = createSlice({
+  name: 'deals',
+  initialState: { userInput: '' },
   reducers: {
     updateInput(state, action) {
       state.userInput = action.payload.userInput;
@@ -12,10 +10,10 @@ const mainFormSlice = createSlice({
   },
 });
 
-const store = configureStore({ reducer: mainFormSlice.reducer });
+const store = configureStore({ reducer: dealsSlice.reducer });
 
-export const mainFormActions = mainFormSlice.actions;
+export const dealsActions = dealsSlice.actions;
 export default store;
 
 // multiple reducers:
-// const store = configureStore({ reducer: { mainForm: mainFormSlice.reducer } });
+// const store = configureStore({ reducer: { deals: mainFormSlice.reducer } });
