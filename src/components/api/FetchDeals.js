@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import DealCard from '../DealCard';
+import DealCard from '../index/DealCard';
 
 const FetchDeals = () => {
   const [dealsArray, setDealsArray] = useState([]);
