@@ -5,6 +5,8 @@ import MainNav from './components/navigation/MainNav';
 import MainContent from './components/index/MainContent';
 import AboutContent from './components/about/AboutContent';
 
+import SignUp from './components/signup/SignUp';
+
 const App = () => {
   return (
     <>
@@ -13,7 +15,7 @@ const App = () => {
         <Route path="/" element={<MainContent />} />
         <Route path="/about" element={<AboutContent />} />
         <Route path="/login" element={<h1>PLACEHOLDER LOGIN</h1>} />
-        <Route path="/signup" element={<h1>PLACEHOLDER SIGNUP</h1>} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );

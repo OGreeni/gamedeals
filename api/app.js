@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import mongoose from 'mongoose';
 
-const cheapSharkRoutes = require('./routes/cheapshark');
+import authRouter from './routes/auth.js';
 
 const app = express();
 
@@ -14,6 +15,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/cheapshark', cheapSharkRoutes);
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-app.listen(8080);
+app.use('/auth', authRouter);
+
+mongoose
+  .connect(
+    'mongodb+srv://omrigreen:Ffick5ol@cluster0.khsfjbr.mongodb.net/gamedeals?retryWrites=true&w=majority'
+  )
+  .then(app.listen(8080));
