@@ -1,9 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import multer from 'multer';
 
 import authRouter from './routes/auth.js';
 
 const app = express();
+
+const upload = multer();
+
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -15,10 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-app.use('/auth', authRouter);
+app.use('/auth', upload.none(), authRouter);
 
 mongoose
   .connect(

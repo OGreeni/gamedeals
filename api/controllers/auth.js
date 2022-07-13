@@ -1,9 +1,9 @@
 import User from '../models/user.js';
 
 export const postSignup = (req, res, next) => {
-  email = req.body.email;
-  username = req.body.username;
-  password = req.body.password;
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
 
   const user = new User({
     email,
