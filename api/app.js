@@ -23,6 +23,13 @@ app.use((req, res, next) => {
 
 app.use('/auth', upload.none(), authRouter);
 
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  res.status(status).json({ message });
+});
+
 mongoose
   .connect(
     'mongodb+srv://omrigreen:Ffick5ol@cluster0.khsfjbr.mongodb.net/gamedeals?retryWrites=true&w=majority'
