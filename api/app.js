@@ -1,12 +1,18 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import * as dotenv from 'dotenv';
 
 import authRouter from './routes/auth.js';
 
 const app = express();
 
 const upload = multer();
+
+dotenv.config();
+
+const port = process.env.PORT;
+const mongo_uri = process.env.MONGO_URI;
 
 // app.use(express.urlencoded({ extended: true }));
 // app.use(express.json());
@@ -31,7 +37,5 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    'mongodb+srv://omrigreen:Ffick5ol@cluster0.khsfjbr.mongodb.net/gamedeals?retryWrites=true&w=majority'
-  )
-  .then(app.listen(8080));
+  .connect(mongo_uri)
+  .then(app.listen(port, () => console.log(`Server running on port ${port}`)));

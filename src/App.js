@@ -5,7 +5,8 @@ import MainNav from './components/navigation/MainNav';
 import MainContent from './components/index/MainContent';
 import AboutContent from './components/about/AboutContent';
 
-import SignUp from './components/signup/SignUp';
+import LoginForm from './components/login/LoginForm';
+import SignupForm from './components/signup/SignupForm';
 
 const App = () => {
   return (
@@ -14,8 +15,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainContent />} />
         <Route path="/about" element={<AboutContent />} />
-        <Route path="/login" element={<h1>PLACEHOLDER LOGIN</h1>} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
       </Routes>
     </>
   );

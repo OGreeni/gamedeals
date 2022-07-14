@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 import { validationResult } from 'express-validator';
 
 import User from '../models/user.js';
@@ -10,21 +13,79 @@ export const postSignup = (req, res, next) => {
     error.statusCode = 422;
     return next(error);
   }
-  const email = req.body.email;
-  const username = req.body.username;
-  const password = req.body.password;
+  const { email, username, password } = req.body;
 
-  const user = new User({
-    email,
-    username,
-    password,
+  if (!(email && username && password)) {
+    const error = new Error('All fields required to continue');
+    error.statusCode = 400;
+    return next(error);
+  }
+
+  // encrypt password
+  bcrypt.hash(password, 10).then((encryptedPassword) => {
+    const user = new User({
+      email: email.toLowerCase(),
+      username,
+      password: encryptedPassword,
+    });
+    user
+      .save()
+      .then((savedUser) => {
+        const token = jwt.sign(
+          {
+            user_id: savedUser._id,
+            email,
+          },
+          process.env.TOKEN_KEY,
+          { expiresIn: '2h' }
+        );
+        user.token = token;
+        res
+          .status(201)
+          .json({ message: 'Signed up successfully!', user: savedUser });
+      })
+      .catch((err) => console.log(err));
   });
-  user
-    .save()
-    .then((result) => {
-      res
-        .status(201)
-        .json({ message: 'Signed up successfully!', user: result });
+};
+
+export const postLogin = (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!(email && password)) {
+    const error = new Error('All fields required to continue');
+    error.statusCode = 400;
+    return next(error);
+  }
+  let loginUser;
+  User.findOne({ email: email.toLowerCase() })
+    .then((user) => {
+      if (!user) {
+        const error = new Error('Incorrect email or password');
+        error.statusCode = 400;
+        return next(error);
+      }
+      loginUser = user;
+      return bcrypt.compare(password, user.password);
     })
-    .catch((err) => console.log(err));
+    .then((passwordsMatch) => {
+      if (passwordsMatch) {
+        // create token
+        const token = jwt.sign(
+          {
+            user_id: loginUser._id,
+            email,
+          },
+          process.env.TOKEN_KEY,
+          { expiresIn: '2h' }
+        );
+        loginUser.token = token;
+        res
+          .status(200)
+          .json({ message: 'Logged in successfully!', user: loginUser });
+      } else {
+        const error = new Error('Incorrect email or password');
+        error.statusCode = 400;
+        return next(error);
+      }
+    });
 };
