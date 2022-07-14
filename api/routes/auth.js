@@ -2,13 +2,14 @@ import express from 'express';
 
 import { body } from 'express-validator';
 
-import { postSignup, postLogin } from '../controllers/auth.js';
+import { postRegister, postLogin } from '../controllers/auth.js';
+import { verifyToken } from '../middleware/auth.js';
 import User from '../models/user.js';
 
 const router = express.Router();
 
 router.post(
-  '/signup',
+  '/register',
   [
     body('email')
       .isEmail()
@@ -38,7 +39,7 @@ router.post(
       .isLength({ min: 5 })
       .withMessage('Password must contain at least 5 characters'),
   ],
-  postSignup
+  postRegister
 );
 
 router.post('/login', postLogin);

@@ -5,7 +5,7 @@ import { validationResult } from 'express-validator';
 
 import User from '../models/user.js';
 
-export const postSignup = (req, res, next) => {
+export const postRegister = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors.array());
@@ -42,7 +42,7 @@ export const postSignup = (req, res, next) => {
         user.token = token;
         res
           .status(201)
-          .json({ message: 'Signed up successfully!', user: savedUser });
+          .json({ message: 'Registered successfully!', user: savedUser });
       })
       .catch((err) => console.log(err));
   });
