@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Spinner, Row } from 'react-bootstrap';
 
 import DealCard from '../index/DealCard';
 
@@ -23,10 +24,14 @@ const FetchDeals = () => {
     fetchData();
   }, [formUserInput]);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Row className="justify-content-center">
+        <Spinner animation="border" />
+      </Row>
+    );
   }
   return dealsArray.map((deal) => (
-    <DealCard dealData={deal} key={deal.gameID} /> // gameID --> unique key
+    <DealCard dealData={deal} key={deal.gameID} />
   ));
 };
 

@@ -16,7 +16,7 @@ const DealCard = ({ dealData }) => {
           <Card.Title>{dealData.external}</Card.Title>
           <Card.Text>Rating: {dealData.steamRatingText}</Card.Text>
           <Card.Text>Price: ${dealData.cheapest}</Card.Text>
-          <Button variant="primary" onClick={buttonClickHandler}>
+          <Button variant="secondary" onClick={buttonClickHandler}>
             Go to site
           </Button>
         </Card.Body>
