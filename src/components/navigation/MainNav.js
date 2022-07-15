@@ -9,8 +9,8 @@ const MainNav = () => {
   const modalCloseHandler = () => setShowModal(false);
   return (
     <>
-      <Navbar bg="light" variant="light" sticky="top">
-        <Container fluid>
+      <Container fluid>
+        <Navbar bg="light" variant="light" sticky="top">
           <Navbar.Brand>GameDeals</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
@@ -18,14 +18,16 @@ const MainNav = () => {
             <Nav.Link onClick={() => navigate('/register')}>Register</Nav.Link>
             <Nav.Link onClick={() => navigate('/login')}>Login</Nav.Link>
             <Nav.Link onClick={logoutClickHandler}>Logout</Nav.Link>
+            <Nav.Link onClick={() => navigate('/account')}>Account</Nav.Link>
           </Nav>
-        </Container>
-      </Navbar>
+        </Navbar>
+      </Container>
+
       <Modal show={showModal} onHide={modalCloseHandler}>
         <Modal.Header closeButton>
           <Modal.Title>Logout</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Do you wish to logout?</Modal.Body>
+        <Modal.Body>Do you really wish to logout?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={modalCloseHandler}>
             Close

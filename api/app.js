@@ -4,6 +4,7 @@ import multer from 'multer';
 import * as dotenv from 'dotenv';
 
 import authRouter from './routes/auth.js';
+import accountRouter from './routes/account.js';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', upload.none(), authRouter);
+app.use('/account', accountRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

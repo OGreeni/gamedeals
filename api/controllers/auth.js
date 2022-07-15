@@ -40,6 +40,7 @@ export const postRegister = (req, res, next) => {
           { expiresIn: '2h' }
         );
         user.token = token;
+        res.cookie('token', token, { httpOnly: true });
         res
           .status(201)
           .json({ message: 'Registered successfully!', user: savedUser });
@@ -79,6 +80,7 @@ export const postLogin = (req, res, next) => {
           { expiresIn: '2h' }
         );
         loginUser.token = token;
+        res.cookie('token', token, { httpOnly: true });
         res
           .status(200)
           .json({ message: 'Logged in successfully!', user: loginUser });

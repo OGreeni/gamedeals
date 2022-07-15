@@ -10,7 +10,6 @@ const FetchDeals = () => {
   const formUserInput = useSelector((state) => state.userInput);
   useEffect(() => {
     setIsLoading(true);
-    // has to return a cleanup func (not promise)
     const fetchData = async () => {
       // validate input not empty
       if (formUserInput && formUserInput.trim()) {
@@ -18,6 +17,7 @@ const FetchDeals = () => {
           `https://www.cheapshark.com/api/1.0/games?title=${formUserInput}&limit=60&exact=0`
         );
         setDealsArray(await response.json());
+        console.log(dealsArray);
       }
       setIsLoading(false);
     };
