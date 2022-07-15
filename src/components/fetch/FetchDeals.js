@@ -5,8 +5,10 @@ import DealCard from '../index/DealCard';
 
 const FetchDeals = () => {
   const [dealsArray, setDealsArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const formUserInput = useSelector((state) => state.userInput);
   useEffect(() => {
+    setIsLoading(true);
     // has to return a cleanup func (not promise)
     const fetchData = async () => {
       // validate input not empty
@@ -16,9 +18,13 @@ const FetchDeals = () => {
         );
         setDealsArray(await response.json());
       }
+      setIsLoading(false);
     };
     fetchData();
   }, [formUserInput]);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return dealsArray.map((deal) => (
     <DealCard dealData={deal} key={deal.gameID} /> // gameID --> unique key
   ));
