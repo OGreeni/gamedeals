@@ -11,6 +11,7 @@ const MainNav = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = useSelector((state) => state.auth.userId);
   const dispatch = useDispatch();
 
   return (
@@ -26,7 +27,7 @@ const MainNav = () => {
             </Navbar.Brand>
           </Container>
           <Nav className="me-auto">
-            <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
+            <Nav.Link onClick={() => navigate('/about/')}>About</Nav.Link>
             {!isLoggedIn && (
               <Nav.Link onClick={() => navigate('/register')}>
                 Register
@@ -38,7 +39,7 @@ const MainNav = () => {
             {isLoggedIn && (
               <>
                 <Nav.Link onClick={() => setShowModal(true)}>Logout</Nav.Link>
-                <Nav.Link onClick={() => navigate('/account')}>
+                <Nav.Link onClick={() => navigate(`/account/${userId}`)}>
                   Account
                 </Nav.Link>
               </>

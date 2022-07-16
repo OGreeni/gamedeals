@@ -12,13 +12,15 @@ const dealsSlice = createSlice({
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { isLoggedIn: false },
+  initialState: { isLoggedIn: false, userId: null },
   reducers: {
     loginUser(state, action) {
       state.isLoggedIn = true;
+      state.userId = action.payload.userId;
     },
     logoutUser(state, action) {
       state.isLoggedIn = false;
+      state.userId = null;
     },
   },
 });

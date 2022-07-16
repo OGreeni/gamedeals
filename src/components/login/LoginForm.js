@@ -10,6 +10,7 @@ const LoginForm = () => {
   const [resFailMessage, setResFailMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState('');
+  const [userId, setUserId] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const LoginForm = () => {
         if (response.ok) {
           setApiResponse(response);
           response.json().then((result) => {
+            setUserId(result.user._id);
             setResSuccessMessage(result.message);
             setTimeout(() => navigate('/'), 500);
           });
@@ -43,7 +45,7 @@ const LoginForm = () => {
   };
 
   if (apiResponse.ok) {
-    dispatch(authActions.loginUser());
+    setTimeout(() => dispatch(authActions.loginUser({ userId })), 750);
   }
 
   return (

@@ -12,6 +12,7 @@ import NotFound from './404/NotFound';
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = useSelector((state) => state.auth.userId);
   // TODO: dynamically update routes based on login status
 
   return (
@@ -26,7 +27,9 @@ const App = () => {
             <Route path="/register" element={<RegisterForm />} />
           </>
         )}
-        {isLoggedIn && <Route path="/account" element={<AccountContent />} />}
+        {isLoggedIn && (
+          <Route path={`/account/${userId}`} element={<AccountContent />} />
+        )}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
