@@ -1,24 +1,40 @@
 import React, { useState } from 'react';
 import { Container, Nav, Navbar, Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MainNav = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const logoutClickHandler = () => setShowModal(true);
   const modalCloseHandler = () => setShowModal(false);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
     <>
       <Container fluid>
         <Navbar bg="light" variant="light" sticky="top">
-          <Navbar.Brand>GameDeals</Navbar.Brand>
+          <Container>
+            <Navbar.Brand>GameDeals</Navbar.Brand>
+          </Container>
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
             <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
-            <Nav.Link onClick={() => navigate('/register')}>Register</Nav.Link>
-            <Nav.Link onClick={() => navigate('/login')}>Login</Nav.Link>
-            <Nav.Link onClick={logoutClickHandler}>Logout</Nav.Link>
-            <Nav.Link onClick={() => navigate('/account')}>Account</Nav.Link>
+            {!isLoggedIn && (
+              <Nav.Link onClick={() => navigate('/register')}>
+                Register
+              </Nav.Link>
+            )}
+            {!isLoggedIn && (
+              <Nav.Link onClick={() => navigate('/login')}>Login</Nav.Link>
+            )}
+            {isLoggedIn && (
+              <>
+                <Nav.Link onClick={logoutClickHandler}>Logout</Nav.Link>
+                <Nav.Link onClick={() => navigate('/account')}>
+                  Account
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar>
       </Container>

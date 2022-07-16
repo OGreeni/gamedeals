@@ -14,7 +14,7 @@ const DealCard = ({ dealData }) => {
         <Card.Header>Deal</Card.Header>
         <Card.Body>
           <Card.Title>{dealData.external}</Card.Title>
-          <Card.Text>Price: ${dealData.cheapest}</Card.Text>
+          <Card.Text>Lowest price: ${dealData.cheapest}</Card.Text>
           <Button variant="secondary" onClick={buttonClickHandler}>
             Go to site
           </Button>

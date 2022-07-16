@@ -7,7 +7,7 @@ import DealCard from '../index/DealCard';
 const FetchDeals = () => {
   const [dealsArray, setDealsArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const formUserInput = useSelector((state) => state.userInput);
+  const formUserInput = useSelector((state) => state.deals.userInput);
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
@@ -22,7 +22,7 @@ const FetchDeals = () => {
       setIsLoading(false);
     };
     fetchData();
-  }, [formUserInput]);
+  }, [formUserInput, dealsArray]);
   if (isLoading) {
     return (
       <Row className="justify-content-center">

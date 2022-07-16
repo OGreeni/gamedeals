@@ -10,9 +10,22 @@ const dealsSlice = createSlice({
   },
 });
 
-const store = configureStore({ reducer: dealsSlice.reducer });
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: { isLoggedIn: false },
+  reducers: {
+    loginUser(state, action) {
+      state.isLoggedIn = action.payload.loginUser;
+    },
+  },
+});
+
+const store = configureStore({
+  reducer: { deals: dealsSlice.reducer, auth: authSlice.reducer },
+});
 
 export const dealsActions = dealsSlice.actions;
+export const authActions = authSlice.actions;
 export default store;
 
 // multiple reducers:

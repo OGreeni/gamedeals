@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
 
 import MainNav from './components/navigation/MainNav';
 import MainContent from './components/index/MainContent';
@@ -9,6 +10,9 @@ import RegisterForm from './components/register/RegisterForm';
 import AccountContent from './components/account/AccountContent';
 
 const App = () => {
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // TODO: dynamically update routes based on login status
+
   return (
     <>
       <MainNav />

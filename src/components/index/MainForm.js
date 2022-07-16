@@ -23,7 +23,7 @@ const MainForm = () => {
           <Form.Label>Enter game to look up</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Minecraft, Call of Duty, etc."
+            placeholder="E.g. Minecraft, Call of Duty, etc."
             onChange={inputChangeHandler}
             value={formUserInput}
           />
