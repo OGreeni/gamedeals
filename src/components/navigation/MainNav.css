@@ -1,0 +1,8 @@
+.navbar-brand:hover {
+  cursor: pointer;
+}
+
+img {
+  width: 50px;
+  margin-right: 0.5rem;
+}
