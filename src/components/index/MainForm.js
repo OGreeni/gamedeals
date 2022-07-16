@@ -17,35 +17,28 @@ const MainForm = () => {
   };
 
   return (
-    <Form onSubmit={formSubmitHandler}>
-      <Row className="justify-content-center">
-        <Form.Group controlId="gameInput" className="mb-3 w-75 p3">
-          <Form.Label>Enter game to look up</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="E.g. Minecraft, Call of Duty, etc."
-            onChange={inputChangeHandler}
-            value={formUserInput}
-          />
-        </Form.Group>
-      </Row>
-      <div className="text-center">
-        <Button variant="primary" type="submit" size="lg">
-          Get deals
-        </Button>
-      </div>
+    <>
       <br />
-    </Form>
-
-    // <form onSubmit={formSubmitHandler}>
-    //   <input
-    //     type="text"
-    //     onChange={inputChangeHandler}
-    //     value={formUserInput}
-    //     required
-    //   />
-    //   <button>Search</button>
-    // </form>
+      <Form onSubmit={formSubmitHandler}>
+        <Row className="justify-content-center">
+          <Form.Group controlId="gameInput" className="mb-3 w-75 p3">
+            <Form.Label>Enter game to look up</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="E.g. Minecraft, Call of Duty, etc."
+              onChange={inputChangeHandler}
+              value={formUserInput}
+            />
+          </Form.Group>
+        </Row>
+        <div className="text-center">
+          <Button variant="primary" type="submit" size="lg">
+            Get deals
+          </Button>
+        </div>
+        <br />
+      </Form>
+    </>
   );
 };
 

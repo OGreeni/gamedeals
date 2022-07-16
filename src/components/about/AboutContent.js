@@ -6,7 +6,7 @@ import './AboutContent.css';
 const AboutContent = () => {
   return (
     <Container className="text-center">
-      <h1 className="about-title">About Page</h1>
+      <h1 className="about-title">🎮 About Page 🎮</h1>
       <p className="about-content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

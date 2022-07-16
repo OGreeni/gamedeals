@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 
 import authRouter from './routes/auth.js';
 import accountRouter from './routes/account.js';
+import dealsRouter from './routes/deals.js';
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(cookieParser());
 
 app.use('/auth', upload.none(), authRouter);
 app.use('/account', accountRouter);
+app.use('/deals', dealsRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

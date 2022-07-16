@@ -20,6 +20,14 @@ const userSchema = new Schema({
   token: {
     type: String,
   },
+  savedDeals: [
+    {
+      dealId: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 export default mongoose.model('user', userSchema);
