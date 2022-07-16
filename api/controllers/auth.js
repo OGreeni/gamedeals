@@ -34,7 +34,7 @@ export const postRegister = (req, res, next) => {
         const token = jwt.sign(
           {
             user_id: savedUser._id,
-            username,
+            email,
           },
           process.env.TOKEN_KEY,
           { expiresIn: '2h' }
@@ -61,8 +61,10 @@ export const postLogin = (req, res, next) => {
   User.findOne({ email: email.toLowerCase() })
     .then((user) => {
       if (!user) {
-        const error = new Error('Incorrect email or password');
-        error.statusCode = 400;
+        const error = new Error(
+          'Incorrect email or password. Please try again'
+        );
+        error.statusCode = 401;
         return next(error);
       }
       loginUser = user;
@@ -74,7 +76,7 @@ export const postLogin = (req, res, next) => {
         const token = jwt.sign(
           {
             user_id: loginUser._id,
-            username,
+            email,
           },
           process.env.TOKEN_KEY,
           { expiresIn: '2h' }
@@ -85,8 +87,10 @@ export const postLogin = (req, res, next) => {
           .status(200)
           .json({ message: 'Logged in successfully!', user: loginUser });
       } else {
-        const error = new Error('Incorrect email or password');
-        error.statusCode = 400;
+        const error = new Error(
+          'Incorrect email or password. Please try again'
+        );
+        error.statusCode = 401;
         return next(error);
       }
     });

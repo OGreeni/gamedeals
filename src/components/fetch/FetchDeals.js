@@ -17,12 +17,11 @@ const FetchDeals = () => {
           `https://www.cheapshark.com/api/1.0/games?title=${formUserInput}&limit=60&exact=0`
         );
         setDealsArray(await response.json());
-        console.log(dealsArray);
       }
       setIsLoading(false);
     };
     fetchData();
-  }, [formUserInput, dealsArray]);
+  }, [formUserInput]);
   if (isLoading) {
     return (
       <Row className="justify-content-center">

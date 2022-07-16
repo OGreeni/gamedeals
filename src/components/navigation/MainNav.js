@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { Container, Nav, Navbar, Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { authActions } from '../../store/store';
+
+import './MainNav.css';
 
 const MainNav = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const logoutClickHandler = () => setShowModal(true);
-  const modalCloseHandler = () => setShowModal(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+
   return (
     <>
       <Container fluid>
         <Navbar bg="light" variant="light" sticky="top">
           <Container>
-            <Navbar.Brand>GameDeals</Navbar.Brand>
+            <Navbar.Brand
+              className="navbar-brand"
+              onClick={() => navigate('/')}
+            >
+              GameDeals
+            </Navbar.Brand>
           </Container>
           <Nav className="me-auto">
-            <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
             <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
             {!isLoggedIn && (
               <Nav.Link onClick={() => navigate('/register')}>
@@ -29,7 +37,7 @@ const MainNav = () => {
             )}
             {isLoggedIn && (
               <>
-                <Nav.Link onClick={logoutClickHandler}>Logout</Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)}>Logout</Nav.Link>
                 <Nav.Link onClick={() => navigate('/account')}>
                   Account
                 </Nav.Link>
@@ -39,25 +47,28 @@ const MainNav = () => {
         </Navbar>
       </Container>
 
-      <Modal show={showModal} onHide={modalCloseHandler}>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Logout</Modal.Title>
         </Modal.Header>
         <Modal.Body>Do you really wish to logout?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={modalCloseHandler}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
-          <Button variant="danger" onClick={modalCloseHandler}>
+          <Button
+            variant="danger"
+            onClick={() => {
+              dispatch(authActions.logoutUser()); // UX ONLY
+              setShowModal(false);
+              navigate('/');
+            }}
+          >
             Logout
           </Button>
         </Modal.Footer>
       </Modal>
     </>
-    // <Link to="/">Home</Link>
-    // <Link to="about">About</Link>
-    // <Link to="login">Login</Link>
-    // <Link to="register">Register</Link>
   );
 };
 
