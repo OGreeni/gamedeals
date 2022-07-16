@@ -51,7 +51,6 @@ export const postRegister = (req, res, next) => {
 
 export const postLogin = (req, res, next) => {
   const { email, password } = req.body;
-
   if (!(email && password)) {
     const error = new Error('All fields required to continue');
     error.statusCode = 400;

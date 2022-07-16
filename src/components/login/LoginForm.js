@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, Alert, Spinner } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { authActions } from '../../store/store';
 
 const LoginForm = () => {
   const [resSuccessMessage, setResSuccessMessage] = useState('');
   const [resFailMessage, setResFailMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [apiResponse, setApiResponse] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -17,9 +24,11 @@ const LoginForm = () => {
     })
       .then((response) => {
         if (response.ok) {
-          response
-            .json()
-            .then((result) => setResSuccessMessage(result.message));
+          setApiResponse(response);
+          response.json().then((result) => {
+            setResSuccessMessage(result.message);
+            setTimeout(() => navigate('/'), 500);
+          });
         } else {
           response.json().then((result) => setResFailMessage(result.message));
         }
@@ -32,6 +41,11 @@ const LoginForm = () => {
         } // server down
       );
   };
+
+  if (apiResponse.ok) {
+    dispatch(authActions.loginUser());
+  }
+
   return (
     <>
       <br />
@@ -39,13 +53,23 @@ const LoginForm = () => {
         <Row className="justify-content-center">
           <Form.Group className="mb-3 w-50 p3" controlId="email">
             <Form.Label>Email address</Form.Label>
-            <Form.Control size="md" type="email" placeholder="Enter email" />
+            <Form.Control
+              size="md"
+              type="email"
+              name="email"
+              placeholder="Enter email"
+            />
           </Form.Group>
         </Row>
         <Row className="justify-content-center">
           <Form.Group className="mb-3 w-50 p3" controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control size="md" type="password" placeholder="Password" />
+            <Form.Control
+              size="md"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
           </Form.Group>
         </Row>
         <div className="text-center">
@@ -67,6 +91,11 @@ const LoginForm = () => {
           <Alert variant="danger" className="mb-3 w-50 p3">
             {resFailMessage}
           </Alert>
+        </Row>
+      )}
+      {isLoading && (
+        <Row className="justify-content-center">
+          <Spinner animation="border" />
         </Row>
       )}
     </>
