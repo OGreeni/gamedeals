@@ -15,7 +15,6 @@ const AccountContent = () => {
       const result = await response.json();
       setUserInfo(result);
       setTimeout(() => setIsLoading(false), 250);
-      console.log(result);
     };
     fetchUserProfile();
   }, [userId]);
@@ -24,7 +23,7 @@ const AccountContent = () => {
     return (
       <>
         <br />
-        <Container>
+        <Container className="spinner-container">
           <Row className="justify-content-center">
             <Spinner animation="border" />
           </Row>
