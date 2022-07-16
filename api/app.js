@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import * as dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 import authRouter from './routes/auth.js';
 import accountRouter from './routes/account.js';
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+
+app.use(cookieParser());
 
 app.use('/auth', upload.none(), authRouter);
 app.use('/account', accountRouter);

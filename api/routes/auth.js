@@ -48,6 +48,10 @@ router.post(
   postRegister
 );
 
-router.post('/login', postLogin);
+router.post(
+  '/login',
+  body('email').isEmail().withMessage('Invalid email address'),
+  postLogin
+);
 
 export default router;
