@@ -17,9 +17,6 @@ dotenv.config();
 const port = process.env.PORT;
 const mongo_uri = process.env.MONGO_URI;
 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -30,6 +27,8 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cookieParser());
 
 app.use('/auth', upload.none(), authRouter);

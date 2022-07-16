@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Button,
@@ -9,10 +11,35 @@ import {
 
 import './DealCard.css';
 
+// https://www.cheapshark.com/api/1.0/deals?id=X8sebHhbc1Ga0dTkgg59WgyM506af9oNZZJLU9uSrX8%3D
+// use this endpoint to later fetch deal by ID
 const DealCard = ({ dealData }) => {
+  const [saveDeal, setSaveDeal] = useState(false);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = useSelector((state) => state.auth.userId);
+  const navigate = useNavigate();
+  const dealId = dealData.dealID;
+
+  const notifyClickHandler = async () => {
+    if (isLoggedIn) {
+      const response = await fetch('deals/save-deal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, dealId }),
+      });
+      const result = await response.json();
+      console.log(result.message);
+      setSaveDeal(true);
+    } else {
+      navigate('/login');
+    }
+  };
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Get notified of sales
+      {saveDeal ? 'User will be notified of sales' : 'Get notified of sales'}
     </Tooltip>
   );
 
@@ -41,8 +68,12 @@ const DealCard = ({ dealData }) => {
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
           >
-            <Button variant="info" className="card-button">
-              Notify me
+            <Button
+              variant={saveDeal ? 'light' : 'info'}
+              className="card-button"
+              onClick={notifyClickHandler}
+            >
+              {saveDeal ? 'Saved' : 'Notify'}
             </Button>
           </OverlayTrigger>
         </Card.Body>

@@ -58,7 +58,7 @@ const LoginForm = () => {
         className="login-form"
       >
         <Row className="justify-content-center">
-          <h1 className="login-title text-center">🕹️ Login 🕹️</h1>
+          <h1 className="login-title text-center">🎮 Login 🎮</h1>
           <Form.Group className="mb-3 w-50 p3" controlId="email">
             <Form.Label>Email address</Form.Label>
             <Form.Control

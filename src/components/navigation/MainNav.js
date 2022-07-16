@@ -69,7 +69,7 @@ const MainNav = () => {
             onClick={() => {
               dispatch(authActions.logoutUser()); // UX ONLY
               setShowModal(false);
-              navigate('/');
+              navigate('/login');
             }}
           >
             Logout
