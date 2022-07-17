@@ -11,27 +11,35 @@ import {
 
 import './DealCard.css';
 
-// https://www.cheapshark.com/api/1.0/deals?id=X8sebHhbc1Ga0dTkgg59WgyM506af9oNZZJLU9uSrX8%3D
+// https://www.cheapshark.com/api/1.0/deals?id=SOME_ID
 // use this endpoint to later fetch deal by ID
 const DealCard = ({ dealData }) => {
   const [saveDeal, setSaveDeal] = useState(false);
+  const [notifyClicks, setNotifyClicks] = useState(0); // num of clicks on notify (THINK OF BETTER WAY)
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
   const navigate = useNavigate();
-  const dealId = dealData.dealID;
+  const dealId = dealData.cheapestDealID;
 
   const notifyClickHandler = async () => {
+    setSaveDeal((prevState) => !prevState);
+    setNotifyClicks((prevState) => (prevState += 1));
     if (isLoggedIn) {
-      const response = await fetch('deals/save-deal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, dealId }),
-      });
-      const result = await response.json();
-      console.log(result.message);
-      setSaveDeal(true);
+      if (notifyClicks % 2 === 0) {
+        const response = await fetch(
+          `deals/save-deal?userId=${userId}&dealId=${dealId}`,
+          {
+            method: 'POST',
+          }
+        );
+        const result = await response.json();
+      } else {
+        // delete saved deal from db
+        const response = await fetch(
+          `deals/remove-deal?userId=${userId}&dealId=${dealId}`,
+          { method: 'DELETE' }
+        );
+      }
     } else {
       navigate('/login');
     }
@@ -39,7 +47,7 @@ const DealCard = ({ dealData }) => {
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      {saveDeal ? 'User will be notified of sales' : 'Get notified of sales'}
+      {saveDeal ? 'You will be notified of sales' : 'Get notified of sales'}
     </Tooltip>
   );
 

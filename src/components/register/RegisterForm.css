@@ -6,3 +6,17 @@
   margin-bottom: 1rem;
   font-weight: 400;
 }
+
+.have-account-text {
+  font-weight: 400;
+}
+
+.login-link {
+  font-weight: 500;
+  color: black;
+}
+
+.login-link:hover {
+  font-weight: 500;
+  color: rgb(50, 50, 50);
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, Alert, Spinner } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { authActions } from '../../store/store';
 import './LoginForm.css';
@@ -58,7 +58,7 @@ const LoginForm = () => {
         className="login-form"
       >
         <Row className="justify-content-center">
-          <h1 className="login-title text-center">🎮 Login 🎮</h1>
+          <h1 className="login-title text-center">🎮 Login to GameDeals 🎮</h1>
           <Form.Group className="mb-3 w-50 p3" controlId="email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -106,6 +106,13 @@ const LoginForm = () => {
           <Spinner animation="border" />
         </Row>
       )}
+      <h5 className="text-center no-account-text">
+        Don't have an account?{' '}
+        <Link to="/register" className="register-link">
+          Register
+        </Link>
+      </h5>
+      <br />
     </>
   );
 };
