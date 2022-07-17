@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Nav, Navbar, Modal, Button } from 'react-bootstrap';
+import {
+  Container,
+  Nav,
+  Navbar,
+  Modal,
+  Button,
+  NavDropdown,
+} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -33,6 +40,9 @@ const MainNav = () => {
             </Navbar.Brand>
           </Container>
           <Nav className="me-auto">
+            <NavDropdown id="nav-dropdown" title="Options" menuvarient="light">
+              <NavDropdown.Item>Enable dark mode</NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link onClick={githubClickHandler}>GitHub</Nav.Link>
             <Nav.Link onClick={() => navigate('/about/')}>About</Nav.Link>
             {!isLoggedIn && (

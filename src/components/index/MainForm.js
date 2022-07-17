@@ -23,6 +23,7 @@ const MainForm = () => {
         <Row className="justify-content-center">
           <Form.Group controlId="gameInput" className="mb-3 w-75 p3">
             <Form.Label>Enter game to look up</Form.Label>
+
             <Form.Control
               type="text"
               placeholder="E.g. Minecraft, Call of Duty, etc."
