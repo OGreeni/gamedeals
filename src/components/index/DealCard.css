@@ -1,3 +1,10 @@
 .card-button {
   margin-right: 0.5rem;
 }
+
+.deal-image {
+  width: 50px;
+  height: 25px;
+  border: 1px solid white;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+}

@@ -1,6 +1,10 @@
 import express from 'express';
 
-import { postSaveDeal, deleteDropDeal } from '../controllers/deals.js';
+import {
+  postSaveDeal,
+  deleteDropDeal,
+  getSavedDeals,
+} from '../controllers/deals.js';
 import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();

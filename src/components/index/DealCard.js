@@ -11,8 +11,6 @@ import {
 
 import './DealCard.css';
 
-// https://www.cheapshark.com/api/1.0/deals?id=SOME_ID
-// use this endpoint to later fetch deal by ID
 const DealCard = ({ dealData }) => {
   const [saveDeal, setSaveDeal] = useState(false);
   const [notifyClicks, setNotifyClicks] = useState(0); // num of clicks on notify (THINK OF BETTER WAY)
@@ -60,7 +58,10 @@ const DealCard = ({ dealData }) => {
   return (
     <Container fluid>
       <Card>
-        <Card.Header>Deal</Card.Header>
+        <Card.Header>
+          <img alt="deal thumb" src={dealData.thumb} className="deal-image" />
+          {dealData.external}
+        </Card.Header>
         <Card.Body>
           <Card.Title>{dealData.external}</Card.Title>
           <Card.Text>Lowest price: ${dealData.cheapest}</Card.Text>

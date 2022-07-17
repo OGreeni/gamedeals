@@ -35,3 +35,5 @@ export const deleteDropDeal = (req, res, next) => {
       next(error);
     });
 };
+
+export const getSavedDeals = (req, res, next) => {};

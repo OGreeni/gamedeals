@@ -8,7 +8,7 @@ import AboutContent from './components/about/AboutContent';
 import LoginForm from './components/login/LoginForm';
 import RegisterForm from './components/register/RegisterForm';
 import AccountContent from './components/account/AccountContent';
-import NotFound from './404/NotFound';
+import NotFound from './components/error/NotFound';
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

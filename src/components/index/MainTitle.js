@@ -8,7 +8,7 @@ const MainTitle = () => {
       <br />
       <Container fluid className="text-center main-title-container">
         <h1 className="main-title">🎮 GameDeals 🎮</h1>
-        <h2 className="main-desc">Get deals, get notified of sales.</h2>
+        <h2 className="main-desc">Find deals, get notified of sales.</h2>
       </Container>
     </>
   );
