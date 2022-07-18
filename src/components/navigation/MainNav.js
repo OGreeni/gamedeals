@@ -41,7 +41,7 @@ const MainNav = () => {
           </Container>
           <Nav className="me-auto">
             <NavDropdown id="nav-dropdown" title="Options" menuvarient="light">
-              <NavDropdown.Item>Enable dark mode</NavDropdown.Item>
+              <NavDropdown.Item>Dark mode</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link onClick={githubClickHandler}>GitHub</Nav.Link>
             <Nav.Link onClick={() => navigate('/about/')}>About</Nav.Link>
