@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Spinner, Row } from 'react-bootstrap';
 
-import DealCard from '../index/DealCard';
+import DealCard from '../DealCard';
 
 const FetchDeals = () => {
   const [dealsArray, setDealsArray] = useState([]);
@@ -30,7 +30,13 @@ const FetchDeals = () => {
     );
   }
   return dealsArray.map((deal) => (
-    <DealCard dealData={deal} key={deal.gameID} />
+    <DealCard
+      cheapsetDealID={deal.cheapsetDealID}
+      cheapest={deal.cheapest}
+      external={deal.external}
+      thumb={deal.thumb}
+      key={deal.gameID}
+    />
   ));
 };
 

@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { authActions } from '../../store/store';
+import { authActions, themeActions } from '../../store/store';
 
 import './MainNav.css';
 import logo from '../../images/logo.png';
@@ -20,7 +20,12 @@ const MainNav = () => {
   const [showModal, setShowModal] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
+  const uiTheme = useSelector((state) => state.theme.uiTheme);
   const dispatch = useDispatch();
+
+  const themeClickHandler = () => {
+    dispatch(themeActions.toggleDarkMode());
+  };
 
   const githubClickHandler = () => {
     window.open('https://github.com/OGreeni/game-deals', '_blank');
@@ -29,7 +34,7 @@ const MainNav = () => {
   return (
     <>
       <Container fluid>
-        <Navbar bg="light" variant="light" fixed="top">
+        <Navbar bg={uiTheme} variant={uiTheme} fixed="top">
           <Container>
             <Navbar.Brand
               className="navbar-brand"
@@ -40,8 +45,14 @@ const MainNav = () => {
             </Navbar.Brand>
           </Container>
           <Nav className="me-auto">
-            <NavDropdown id="nav-dropdown" title="Options" menuvarient="light">
-              <NavDropdown.Item>Dark mode</NavDropdown.Item>
+            <NavDropdown
+              id="nav-dropdown"
+              title="Options"
+              menuvarient={uiTheme}
+            >
+              <NavDropdown.Item onClick={themeClickHandler}>
+                {uiTheme === 'light' ? 'Dark' : 'Light'}
+              </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link onClick={githubClickHandler}>GitHub</Nav.Link>
             <Nav.Link onClick={() => navigate('/about/')}>About</Nav.Link>

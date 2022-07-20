@@ -11,13 +11,14 @@ import {
 
 import './DealCard.css';
 
-const DealCard = ({ dealData }) => {
+const DealCard = (props) => {
   const [saveDeal, setSaveDeal] = useState(false);
   const [notifyClicks, setNotifyClicks] = useState(0); // num of clicks on notify (THINK OF BETTER WAY)
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
+  const uiTheme = useSelector((state) => state.theme.uiTheme);
   const navigate = useNavigate();
-  const dealId = dealData.cheapestDealID;
+  const dealId = props.cheapestDealID;
 
   const notifyClickHandler = async () => {
     setSaveDeal((prevState) => !prevState);
@@ -30,13 +31,12 @@ const DealCard = ({ dealData }) => {
             method: 'POST',
           }
         );
-        const result = await response.json();
+        await response.json();
       } else {
         // delete saved deal from db
-        const response = await fetch(
-          `deals/remove-deal?userId=${userId}&dealId=${dealId}`,
-          { method: 'DELETE' }
-        );
+        await fetch(`deals/remove-deal?userId=${userId}&dealId=${dealId}`, {
+          method: 'DELETE',
+        });
       }
     } else {
       navigate('/login');
@@ -51,20 +51,20 @@ const DealCard = ({ dealData }) => {
 
   const buttonClickHandler = () => {
     window.open(
-      `https://www.cheapshark.com/redirect?dealID=${dealData.cheapestDealID}`,
+      `https://www.cheapshark.com/redirect?dealID=${props.cheapestDealID}`,
       '_blank'
     );
   };
   return (
     <Container fluid>
-      <Card>
+      <Card className={uiTheme === 'dark' ? 'bg-dark text-white' : null}>
         <Card.Header>
-          <img alt="deal thumb" src={dealData.thumb} className="deal-image" />
-          {dealData.external}
+          <img alt="deal thumb" src={props.thumb} className="deal-image" />
+          {props.external}
         </Card.Header>
         <Card.Body>
-          <Card.Title>{dealData.external}</Card.Title>
-          <Card.Text>Lowest price: ${dealData.cheapest}</Card.Text>
+          <Card.Title>{props.external}</Card.Title>
+          <Card.Text>Lowest price: ${props.cheapest}</Card.Text>
           <Button
             variant="secondary"
             className="card-button"

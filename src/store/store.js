@@ -27,10 +27,14 @@ const authSlice = createSlice({
 
 const themeSlice = createSlice({
   name: 'theme',
-  initialState: { darkMode: false },
+  initialState: { uiTheme: 'dark' },
   reducers: {
     toggleDarkMode(state, action) {
-      state.darkMode = !state.darkMode;
+      if (state.uiTheme === 'dark') {
+        state.uiTheme = 'light';
+      } else {
+        state.uiTheme = 'dark';
+      }
     },
   },
 });
@@ -45,4 +49,5 @@ const store = configureStore({
 
 export const dealsActions = dealsSlice.actions;
 export const authActions = authSlice.actions;
+export const themeActions = themeSlice.actions;
 export default store;

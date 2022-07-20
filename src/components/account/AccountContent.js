@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Spinner, Row, Container } from 'react-bootstrap';
 
+import DealCard from '../DealCard';
 import './AccountContent.css';
 
 // https://www.cheapshark.com/api/1.0/deals?id=SOME_ID
@@ -41,8 +42,6 @@ const AccountContent = () => {
     fetchUserProfile();
   }, [userId, userInfo]);
 
-  console.log(savedDealsArray);
-
   if (isLoading) {
     return (
       <>
@@ -58,18 +57,33 @@ const AccountContent = () => {
   return (
     <>
       <br />
-      <Container className="text-center">
-        <h1 className="account-title">
+      <Container>
+        <h1 className="account-title text-center">
           <span className="account-username">{`${userInfo.username}'s `}</span>
           Account Page
         </h1>
         <br />
-        <h2 className="account-favorites">Saved games:</h2>
+        <h2 className="account-favorites text-center">Saved games:</h2>
+        <br />
         {savedDealsArray &&
-          savedDealsArray.map((deal) => <h3>{deal.gameInfo.name}</h3>)}
+          savedDealsArray.map((deal, idx) => (
+            <DealCard
+              key={idx}
+              cheapestDealID={userInfo.deals[idx].dealId}
+              cheapest={deal.gameInfo.salePrice}
+              external={deal.gameInfo.name}
+              thumb={deal.gameInfo.thumb}
+            />
+          ))}
       </Container>
     </>
   );
 };
+
+// cheapsetDealID={deal.cheapsetDealID}
+//       cheapest={deal.cheapest}
+//       external={deal.external}
+//       thumb={deal.thumb}
+//       key={deal.gameID}
 
 export default AccountContent;

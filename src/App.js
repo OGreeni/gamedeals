@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import MainNav from './components/navigation/MainNav';
 import MainContent from './components/index/MainContent';
@@ -13,9 +14,15 @@ import NotFound from './components/error/NotFound';
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
+  const uiTheme = useSelector((state) => state.theme.uiTheme);
 
   return (
     <>
+      <Helmet>
+        <style>{`body {background-color: ${
+          uiTheme === 'light' ? 'white' : '#404040'
+        };}`}</style>
+      </Helmet>
       <MainNav />
       <Routes>
         <Route path="/" element={<MainContent />} />
