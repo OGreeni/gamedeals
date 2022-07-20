@@ -3,7 +3,7 @@ import express from 'express';
 import {
   postSaveDeal,
   deleteDropDeal,
-  getSavedDeals,
+  // getSavedDeals,
 } from '../controllers/deals.js';
 import { verifyToken } from '../middleware/auth.js';
 

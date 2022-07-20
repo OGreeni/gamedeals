@@ -5,6 +5,6 @@ import { getUserProfile } from '../controllers/account.js';
 
 const router = express.Router();
 
-router.get('/:userId', verifyToken, getUserProfile);
+router.get('/:userId', getUserProfile);
 
 export default router;

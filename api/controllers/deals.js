@@ -35,16 +35,3 @@ export const deleteDropDeal = (req, res, next) => {
       return next(error);
     });
 };
-
-export const getSavedDeals = (req, res, next) => {
-  const userId = req.query.userId;
-  User.findOne({ _id: mongoose.Types.ObjectId(userId) })
-    .then((user) => {
-      res.json({ savedDeals: user.savedDeals }).status(200);
-    })
-    .catch((err) => {
-      const error = new Error(err);
-      error.statusCode = 500;
-      return next(error);
-    });
-};
