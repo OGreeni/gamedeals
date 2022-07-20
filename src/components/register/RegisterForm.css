@@ -11,12 +11,20 @@
   font-weight: 400;
 }
 
-.login-link {
+.login-link-light {
+  font-weight: 500;
+  color: white;
+}
+
+.login-link-light:hover {
+  color: rgb(200, 200, 200);
+}
+
+.login-link-dark {
   font-weight: 500;
   color: black;
 }
 
-.login-link:hover {
-  font-weight: 500;
-  color: rgb(50, 50, 50);
+.login-link-dark:hover {
+  color: rgb(75, 75, 75);
 }

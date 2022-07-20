@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Row, Spinner } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { authActions } from '../../store/store';
@@ -12,6 +12,7 @@ const RegisterForm = () => {
   const [resFailMessage, setResFailMessage] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [userId, setUserId] = useState('');
+  const uiTheme = useSelector((state) => state.theme.uiTheme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -120,7 +121,12 @@ const RegisterForm = () => {
       )}
       <h5 className="text-center have-account-text">
         Already have an account?{' '}
-        <Link to="/login" className="login-link">
+        <Link
+          to="/login"
+          className={
+            uiTheme === 'light' ? 'login-link-dark' : 'login-link-light'
+          }
+        >
           Log in
         </Link>
       </h5>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, Alert, Spinner } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { authActions } from '../../store/store';
@@ -12,6 +12,7 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState('');
   const [userId, setUserId] = useState('');
+  const uiTheme = useSelector((state) => state.theme.uiTheme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -108,7 +109,12 @@ const LoginForm = () => {
       )}
       <h5 className="text-center no-account-text">
         Don't have an account?{' '}
-        <Link to="/register" className="register-link">
+        <Link
+          to="/register"
+          className={
+            uiTheme === 'light' ? 'register-link-dark' : 'register-link-light'
+          }
+        >
           Register
         </Link>
       </h5>

@@ -10,3 +10,21 @@
 .no-account-text {
   font-weight: 400;
 }
+
+.register-link-light {
+  font-weight: 500;
+  color: white;
+}
+
+.register-link-light:hover {
+  color: rgb(200, 200, 200);
+}
+
+.register-link-dark {
+  font-weight: 500;
+  color: black;
+}
+
+.register-link-dark:hover {
+  color: rgb(75, 75, 75);
+}

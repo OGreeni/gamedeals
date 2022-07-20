@@ -19,9 +19,12 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <style>{`body {background-color: ${
-          uiTheme === 'light' ? 'white' : '#404040'
-        };}`}</style>
+        <style>
+          {`body {background-color: ${
+            uiTheme === 'light' ? 'white' : '#404040'
+          }; color: ${uiTheme === 'light' ? 'black' : 'white'}      
+        }`}
+        </style>
       </Helmet>
       <MainNav />
       <Routes>
