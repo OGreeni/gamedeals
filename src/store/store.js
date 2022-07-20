@@ -25,13 +25,24 @@ const authSlice = createSlice({
   },
 });
 
+const themeSlice = createSlice({
+  name: 'theme',
+  initialState: { darkMode: false },
+  reducers: {
+    toggleDarkMode(state, action) {
+      state.darkMode = !state.darkMode;
+    },
+  },
+});
+
 const store = configureStore({
-  reducer: { deals: dealsSlice.reducer, auth: authSlice.reducer },
+  reducer: {
+    deals: dealsSlice.reducer,
+    auth: authSlice.reducer,
+    theme: themeSlice.reducer,
+  },
 });
 
 export const dealsActions = dealsSlice.actions;
 export const authActions = authSlice.actions;
 export default store;
-
-// multiple reducers:
-// const store = configureStore({ reducer: { deals: mainFormSlice.reducer } });
