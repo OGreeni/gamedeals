@@ -37,8 +37,8 @@ const AccountContent = () => {
       </>
     );
   }
-  if (userData && savedDeals) {
-    console.log(savedDeals);
+  if (userData) {
+    savedDeals.filter((deal) => !Array.isArray(deal));
     return (
       <Container>
         <br />

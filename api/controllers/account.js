@@ -14,11 +14,13 @@ export const getUserProfile = async (req, res, next) => {
         deal.dealId
       )}`
     );
-    if (response.ok) {
-      const result = await response.json();
-      console.log(result);
+
+    const result = await response.json();
+    if (!Array.isArray(result)) {
       dealsArray.push(result);
+      console.log(result);
     }
   }
+
   res.status(200).json({ user, dealsArray });
 };
