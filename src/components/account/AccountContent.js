@@ -51,6 +51,9 @@ const AccountContent = () => {
         <br />
         <h2 className="account-favorites text-center">Saved games:</h2>
         <br />
+        {savedDeals.length < 1 && (
+          <h4 className="account-favorites text-center">No games saved.</h4>
+        )}
         {savedDeals.length > 0 &&
           savedDeals.map((deal, i) => (
             <>

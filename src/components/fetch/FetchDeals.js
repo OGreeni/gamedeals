@@ -28,7 +28,6 @@ const FetchDeals = () => {
         const res2 = await fetch(`/deals/get-saved-deals?userId=${userId}`);
         if (res2.ok) {
           const result = await res2.json();
-          console.log(result.savedDeals);
           setSavedDealsArray(result.savedDeals);
         }
       }

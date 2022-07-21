@@ -58,14 +58,13 @@ export const postRegister = (req, res, next) => {
           from: 'gamedeals2022@outlook.com',
           to: user.email,
           subject: 'Welcome to GameDeals',
-          text: `Welcome to GameDeals, ${user.username}!`,
+          text: `Welcome to GameDeals, ${user.username}! We're so excited to have you around.`,
         };
         transporter.sendMail(options, (err, info) => {
           if (err) {
             console.log(err);
             return;
           }
-          console.log('Sent:' + info.response);
         });
       })
       .catch((err) => console.log(err));
