@@ -100,7 +100,7 @@
 
 // export default DealCard;
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Container, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -111,24 +111,22 @@ import './DealCard.css';
 
 const DealCard = (props) => {
   const [dealSaved, setDealSaved] = useState(false);
-  const dealId = props.cheapsetDealId;
-  const savedDealsArray = props.savedDealsArray.dealsArray;
+  const dealId = decodeURIComponent(props.cheapsetDealId);
+  const savedDealsArray = props.savedDealsArray;
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userId = useSelector((state) => state.auth.userId);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  if (savedDealsArray && savedDealsArray.length > 0) {
+  useEffect(() => {
     console.log(savedDealsArray);
-    if (!dealSaved) {
-      for (const deal of savedDealsArray) {
-        if (deal.dealId === dealId) {
-          setDealSaved(true);
-        }
+    for (const deal of savedDealsArray) {
+      if (deal.dealId === dealId) {
+        setDealSaved(true);
       }
     }
-  }
+  }, [savedDealsArray]);
 
   const goToSiteHandler = () => {
     window.open(
@@ -190,5 +188,3 @@ const DealCard = (props) => {
 };
 
 export default DealCard;
-
-// SAVE DOES NOT WORK -- BOTH IN ACCOUNT AND PERSISTING SAVE

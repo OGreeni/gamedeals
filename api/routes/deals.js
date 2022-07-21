@@ -9,8 +9,8 @@ import { verifyToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.post('/save-deal', postSaveDeal);
-router.delete('/remove-deal', deleteDropDeal);
-router.get('/get-saved-deals', getSavedDeals);
+router.post('/save-deal', verifyToken, postSaveDeal);
+router.delete('/remove-deal', verifyToken, deleteDropDeal);
+router.get('/get-saved-deals', verifyToken, getSavedDeals);
 
 export default router;

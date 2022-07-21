@@ -11,6 +11,8 @@ const FetchDeals = () => {
   const formUserInput = useSelector((state) => state.deals.userInput);
   const userId = useSelector((state) => state.auth.userId);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
+
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
@@ -23,11 +25,12 @@ const FetchDeals = () => {
       }
 
       if (isLoggedIn) {
-        console.log(userId);
         const res2 = await fetch(`/deals/get-saved-deals?userId=${userId}`);
-        const result = await res2.json();
-        setSavedDealsArray(result.savedDeals);
-        console.log(savedDealsArray);
+        if (res2.ok) {
+          const result = await res2.json();
+          console.log(result.savedDeals);
+          setSavedDealsArray(result.savedDeals);
+        }
       }
       setIsLoading(false);
     };
@@ -41,16 +44,19 @@ const FetchDeals = () => {
       </Row>
     );
   }
-  return dealsArray.map((deal) => (
-    <DealCard
-      savedDealsArray={savedDealsArray}
-      cheapsetDealId={deal.cheapestDealID}
-      cheapest={deal.cheapest}
-      external={deal.external}
-      thumb={deal.thumb}
-      key={deal.gameID}
-    />
-  ));
+  if (savedDealsArray) {
+    console.log(savedDealsArray);
+    return dealsArray.map((deal) => (
+      <DealCard
+        savedDealsArray={savedDealsArray}
+        cheapsetDealId={deal.cheapestDealID}
+        cheapest={deal.cheapest}
+        external={deal.external}
+        thumb={deal.thumb}
+        key={deal.gameID}
+      />
+    ));
+  }
 };
 
 export default FetchDeals;
