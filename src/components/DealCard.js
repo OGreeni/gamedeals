@@ -101,7 +101,13 @@
 // export default DealCard;
 
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Button } from 'react-bootstrap';
+import {
+  Card,
+  Container,
+  Button,
+  Tooltip,
+  OverlayTrigger,
+} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -120,7 +126,6 @@ const DealCard = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(savedDealsArray);
     for (const deal of savedDealsArray) {
       if (deal.dealId === dealId) {
         setDealSaved(true);
@@ -156,6 +161,13 @@ const DealCard = (props) => {
       dispatch(dealsActions.saveDealUpdater());
     }
   };
+
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {dealSaved ? 'You will be notified of sales' : 'Get notified of sales'}
+    </Tooltip>
+  );
+
   return (
     <Container fluid>
       <Card className={uiTheme === 'dark' ? 'bg-dark text-white' : null}>
@@ -173,13 +185,19 @@ const DealCard = (props) => {
           >
             Go to site
           </Button>
-          <Button
-            variant={dealSaved ? 'light' : 'info'}
-            className="card-button"
-            onClick={saveDealHandler}
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 250, hide: 400 }}
+            overlay={renderTooltip}
           >
-            {dealSaved ? 'Saved' : 'Save'}
-          </Button>
+            <Button
+              variant={dealSaved ? 'light' : 'info'}
+              className="card-button"
+              onClick={saveDealHandler}
+            >
+              {dealSaved ? 'Saved' : 'Save'}
+            </Button>
+          </OverlayTrigger>
         </Card.Body>
       </Card>
       <br />

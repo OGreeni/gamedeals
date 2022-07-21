@@ -1,6 +1,16 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  service: 'hotmail',
+  auth: {
+    user: 'gamedeals2022@outlook.com',
+    pass: 'Ffick5ol',
+  },
+});
+
 import { validationResult } from 'express-validator';
 
 import User from '../models/user.js';
@@ -44,6 +54,19 @@ export const postRegister = (req, res, next) => {
         res
           .status(201)
           .json({ message: 'Registered successfully!', user: savedUser });
+        const options = {
+          from: 'gamedeals2022@outlook.com',
+          to: user.email,
+          subject: 'Welcome to GameDeals',
+          text: `Welcome to GameDeals, ${user.username}!`,
+        };
+        transporter.sendMail(options, (err, info) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          console.log('Sent:' + info.response);
+        });
       })
       .catch((err) => console.log(err));
   });

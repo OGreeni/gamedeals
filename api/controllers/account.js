@@ -18,7 +18,6 @@ export const getUserProfile = async (req, res, next) => {
     const result = await response.json();
     if (!Array.isArray(result)) {
       dealsArray.push(result);
-      console.log(result);
     }
   }
 
