@@ -16,3 +16,7 @@ img {
   font-weight: 500;
   color: rgb(50, 50, 50);
 }
+
+.logout-modal-dark .modal-content {
+  background: rgb(50, 50, 50);
+}

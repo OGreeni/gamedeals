@@ -30,12 +30,12 @@ const RegisterForm = () => {
         if (response.ok) {
           response.json().then((result) => {
             setResSuccessMessage(result.message);
+            setUserId(result.user._id);
             setTimeout(() => navigate('/'), 500);
           });
         } else {
           response.json().then((result) => {
             setResFailMessage(result.message);
-            setUserId(result.user._id);
           });
         }
         setIsLoading(false);

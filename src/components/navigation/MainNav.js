@@ -76,7 +76,13 @@ const MainNav = () => {
         </Navbar>
       </Container>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        className={
+          uiTheme === 'light' ? 'logout-modal-light' : 'logout-modal-dark'
+        }
+      >
         <Modal.Header closeButton>
           <Modal.Title>Logout</Modal.Title>
         </Modal.Header>

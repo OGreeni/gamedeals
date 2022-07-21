@@ -2,10 +2,13 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 const dealsSlice = createSlice({
   name: 'deals',
-  initialState: { userInput: '' },
+  initialState: { userInput: '', saveDealUpdater: 0 },
   reducers: {
     updateInput(state, action) {
       state.userInput = action.payload.userInput;
+    },
+    saveDealUpdater(state, action) {
+      state.saveDealUpdater += 1;
     },
   },
 });

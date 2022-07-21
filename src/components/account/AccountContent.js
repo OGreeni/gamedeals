@@ -1,46 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Spinner, Row, Container } from 'react-bootstrap';
+import { Spinner, Container, Row } from 'react-bootstrap';
 
-import DealCard from '../DealCard';
 import './AccountContent.css';
-
-// https://www.cheapshark.com/api/1.0/deals?id=SOME_ID
-// use this endpoint to later fetch deal by ID
-
-// const encoded = encodeURIComponent(
-//   '+yx+apfK+6YN/rb9gh+Xlf1fJet1r8S1NN6nn41FJH0='
-// );
 
 const AccountContent = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState('');
-  const [savedDealsArray, setSavedDealsArray] = useState([]);
+  const [userData, setUserData] = useState(null); // {}
+  const [savedDeals, setSavedDeals] = useState(null); // []
   const userId = useSelector((state) => state.auth.userId);
+  const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
 
   useEffect(() => {
-    setIsLoading(true);
-    const fetchUserProfile = async () => {
-      if (!userInfo) {
-        const response = await fetch(`/account/${userId}`);
+    const fetchUserData = async () => {
+      setIsLoading(true);
+      const response = await fetch(`/account/${userId}`);
+      if (response.ok) {
         const result = await response.json();
-        setUserInfo(result);
-      } else {
-        for (const i in userInfo.deals) {
-          const response = await fetch(
-            `https://www.cheapshark.com/api/1.0/deals?id=${encodeURIComponent(
-              userInfo.deals[i].dealId
-            )}`
-          );
-          const res = await response.json();
-          setSavedDealsArray((prevState) => [...prevState, res]);
-          savedDealsArray.push(res);
-        }
-        setTimeout(() => setIsLoading(false), 100);
+        setUserData(result.user);
+        setSavedDeals(result.dealsArray);
       }
+      setIsLoading(false);
     };
-    fetchUserProfile();
-  }, [userId, userInfo]);
+    fetchUserData();
+  }, [userId, saveDealUpdater]);
 
   if (isLoading) {
     return (
@@ -54,36 +37,82 @@ const AccountContent = () => {
       </>
     );
   }
-  return (
-    <>
-      <br />
+  if (userData && savedDeals) {
+    console.log(savedDeals);
+    return (
       <Container>
+        <br />
+        <br />
         <h1 className="account-title text-center">
-          <span className="account-username">{`${userInfo.username}'s `}</span>
+          <span className="account-username">{userData.username}</span>'s
           Account Page
         </h1>
         <br />
         <h2 className="account-favorites text-center">Saved games:</h2>
-        <br />
-        {savedDealsArray &&
-          savedDealsArray.map((deal, idx) => (
-            <DealCard
-              key={idx}
-              cheapestDealID={userInfo.deals[idx].dealId}
-              cheapest={deal.gameInfo.salePrice}
-              external={deal.gameInfo.name}
-              thumb={deal.gameInfo.thumb}
-            />
-          ))}
+        {savedDeals.length > 0 &&
+          savedDeals.map((deal, i) => <h3 key={i}>{deal.gameInfo.name}</h3>)}
       </Container>
-    </>
-  );
+    );
+  }
+  // const [userData, setUserData] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const userId = useSelector((state) => state.auth.userId);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const fetchData = async () => {
+  //     const response = await fetch(`/account/${userId}`);
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       setUserData(result);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // }, [userId]);
+
+  // if (isLoading) {
+  //   return (
+  //     <>
+  //       <br />
+  //       <Container className="spinner-container">
+  //         <Row className="justify-content-center">
+  //           <Spinner animation="border" />
+  //         </Row>
+  //       </Container>
+  //     </>
+  //   );
+  // }
+
+  // if (userData && userData.dealsArray !== []) {
+  //   for (const i in userData.dealsArray) {
+  //     if (!userData.dealsArray[i].length) {
+  //       userData.dealsArray.pop(i);
+  //     }
+  //   }
+  //   const dealsArray = userData.dealsArray;
+  //   return (
+  //     <>
+  //       <br />
+  //       <Container>
+  //         <h1 className="account-title text-center">
+  //           <span className="account-username">{`${userData.user.username}'s `}</span>
+  //           's Account Page
+  //         </h1>
+  //         <br />
+  //         <h2 className="account-favorites text-center">Saved games:</h2>
+  //         <br />
+  //         {dealsArray.map((deal, i) => (
+  //           <h3 className="text-center" key={i}>
+  //             {deal.gameInfo.name}
+  //           </h3>
+  //         ))}
+  //       </Container>
+  //     </>
+  //   );
+  // }
 };
-
-// cheapsetDealID={deal.cheapsetDealID}
-//       cheapest={deal.cheapest}
-//       external={deal.external}
-//       thumb={deal.thumb}
-//       key={deal.gameID}
-
 export default AccountContent;
+
+// ACCOUNT -- NOT LOADING SAVED GAMES
+// INDEX -- DOESN'T SHOW IF GAME WAS ALREADY SAVED
