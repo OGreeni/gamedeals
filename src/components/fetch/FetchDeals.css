@@ -24,7 +24,12 @@
   border: 0px;
 }
 
-.pagination-container-dark .page-link:hover {
+.pagination-container-dark .page-link:hover,
+.pagination-container-dark .page-link:focus {
   background: rgb(50, 50, 50);
   color: white;
+}
+
+.pagination-btn-disabled .page-link {
+  background: black;
 }

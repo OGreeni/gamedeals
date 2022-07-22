@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Spinner, Row, Pagination } from 'react-bootstrap';
+import { Spinner, Row, Pagination, Container } from 'react-bootstrap';
 
 import DealCard from '../DealCard';
 import './FetchDeals.css';
@@ -9,14 +9,30 @@ const FetchDeals = () => {
   const [dealsArray, setDealsArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [savedDealsArray, setSavedDealsArray] = useState([]);
+  const [curPage, setCurPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(null);
   const formUserInput = useSelector((state) => state.deals.userInput);
   const userId = useSelector((state) => state.auth.userId);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
   const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
 
+  const paginationPrevHandler = () => {
+    if (curPage !== 1) {
+      setCurPage((prevState) => prevState - 1);
+    }
+  };
+
+  const paginationNextHandler = () => {
+    if (curPage < maxPage) {
+      setCurPage((prevState) => prevState + 1);
+    }
+  };
+  console.log(maxPage);
+
   useEffect(() => {
     setIsLoading(true);
+    setCurPage(1);
     const fetchData = async () => {
       // validate input not empty
       if (formUserInput && formUserInput.trim()) {
@@ -24,6 +40,7 @@ const FetchDeals = () => {
           `https://www.cheapshark.com/api/1.0/games?title=${formUserInput}&limit=60&exact=0`
         );
         setDealsArray(await res1.json());
+        setMaxPage(Math.floor(dealsArray.length / 5));
       }
 
       if (isLoggedIn) {
@@ -46,10 +63,9 @@ const FetchDeals = () => {
     );
   }
   if (savedDealsArray) {
-    console.log(savedDealsArray);
     return (
       <>
-        {dealsArray.map((deal) => (
+        {dealsArray.slice(curPage, curPage + 5).map((deal) => (
           <DealCard
             savedDealsArray={savedDealsArray}
             cheapsetDealId={deal.cheapestDealID}
@@ -59,19 +75,28 @@ const FetchDeals = () => {
             key={deal.gameID}
           />
         ))}
-        <Row className="justify-content-center">
-          <Pagination
-            size="lg"
-            className={
-              uiTheme === 'light'
-                ? 'pagination-container'
-                : 'pagination-container-dark'
-            }
-          >
-            <Pagination.Prev className="pagination-btn" />
-            <Pagination.Next className="pagination-btn" />
-          </Pagination>
-        </Row>
+        {dealsArray.length > 0 && (
+          <Container className="justify-content-center">
+            <Pagination
+              size="lg"
+              className={
+                uiTheme === 'light'
+                  ? 'pagination-container'
+                  : 'pagination-container-dark'
+              }
+            >
+              <Pagination.Prev
+                className="pagination-btn"
+                onClick={paginationPrevHandler}
+              />
+              <Pagination.Item>{curPage}</Pagination.Item>
+              <Pagination.Next
+                className="pagination-btn"
+                onClick={paginationNextHandler}
+              />
+            </Pagination>
+          </Container>
+        )}
       </>
     );
   }
