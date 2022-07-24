@@ -16,6 +16,7 @@ const FetchDeals = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
   const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
+  const increment = 5;
 
   const paginationPrevHandler = () => {
     if (curPage !== 1) {
@@ -63,18 +64,21 @@ const FetchDeals = () => {
     );
   }
   if (savedDealsArray) {
+    // FIX PAGINATION
     return (
       <>
-        {dealsArray.slice(curPage, curPage + 5).map((deal) => (
-          <DealCard
-            savedDealsArray={savedDealsArray}
-            cheapsetDealId={deal.cheapestDealID}
-            cheapest={deal.cheapest}
-            external={deal.external}
-            thumb={deal.thumb}
-            key={deal.gameID}
-          />
-        ))}
+        {dealsArray
+          .slice(curPage * increment - increment, curPage * increment)
+          .map((deal) => (
+            <DealCard
+              savedDealsArray={savedDealsArray}
+              cheapsetDealId={deal.cheapestDealID}
+              cheapest={deal.cheapest}
+              external={deal.external}
+              thumb={deal.thumb}
+              key={deal.gameID}
+            />
+          ))}
         {dealsArray.length > 0 && (
           <Container className="justify-content-center">
             <Pagination
