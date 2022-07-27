@@ -18,3 +18,13 @@
 .deal-card {
   margin: 5rem;
 }
+
+.account-card {
+  margin-bottom: 0.5rem;
+}
+
+.card-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

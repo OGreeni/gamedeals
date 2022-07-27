@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Spinner, Container, Row, Card } from 'react-bootstrap';
+import { Spinner, Container, Row, Card, Button } from 'react-bootstrap';
 
 import './AccountContent.css';
 
@@ -60,9 +60,14 @@ const AccountContent = () => {
               <Card
                 body
                 key={i}
-                className={uiTheme === 'dark' ? 'bg-dark' : null}
+                className={
+                  uiTheme === 'dark' ? 'account-card bg-dark' : 'account-card'
+                }
               >
-                {deal.gameInfo.name}
+                <Container className="card-content-container">
+                  {deal.gameInfo.name}
+                  <Button variant="secondary">More Info</Button>
+                </Container>
               </Card>
             </>
           ))}
