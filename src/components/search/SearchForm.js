@@ -4,7 +4,7 @@ import { Form, Button, Row } from 'react-bootstrap';
 
 import { dealsActions } from '../../store/store';
 
-const MainForm = () => {
+const SearchForm = () => {
   const dispatch = useDispatch();
   const [formUserInput, setFormUserInput] = useState('');
   const formSubmitHandler = (e) => {
@@ -43,4 +43,4 @@ const MainForm = () => {
   );
 };
 
-export default MainForm;
+export default SearchForm;

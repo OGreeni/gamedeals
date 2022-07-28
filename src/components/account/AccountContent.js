@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Spinner, Container, Row, Card, Button } from 'react-bootstrap';
 
 import './AccountContent.css';
+
+// TODO: 'More Info' button navigates to a page with more information about the game, specifically the
+// deal info extracted from the API
 
 const AccountContent = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +15,7 @@ const AccountContent = () => {
   const userId = useSelector((state) => state.auth.userId);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
   const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -66,7 +71,9 @@ const AccountContent = () => {
               >
                 <Container className="card-content-container">
                   {deal.gameInfo.name}
-                  <Button variant="secondary">More Info</Button>
+                  <Button variant="secondary" onClick={() => navigate('/')}>
+                    More Info
+                  </Button>
                 </Container>
               </Card>
             </>
