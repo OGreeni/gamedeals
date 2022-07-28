@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import MainNav from './components/navigation/MainNav';
-import SearchContent from './components/search/SearchContent';
+import MainContent from './components/index/MainContent';
 import AboutContent from './components/about/AboutContent';
 import LoginForm from './components/login/LoginForm';
 import RegisterForm from './components/register/RegisterForm';
@@ -28,7 +28,7 @@ const App = () => {
       </Helmet>
       <MainNav />
       <Routes>
-        <Route path="/" element={<SearchContent />} />
+        <Route path="/" element={<MainContent />} />
         <Route path="/about" element={<AboutContent />} />
         {!isLoggedIn && (
           <>
