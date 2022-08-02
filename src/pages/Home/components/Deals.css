@@ -1,0 +1,31 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-container-dark {
+  display: flex;
+  justify-content: center;
+}
+
+.page-link {
+  margin: 0 0.5rem;
+  color: black;
+}
+
+.page-link:hover {
+  background: rgb(225, 225, 225);
+  color: black;
+}
+
+.pagination-container-dark .page-link {
+  background: gray;
+  color: black;
+  border: 0px;
+}
+
+.pagination-container-dark .page-link:hover,
+.pagination-container-dark .page-link:focus {
+  background: rgb(50, 50, 50);
+  color: white;
+}

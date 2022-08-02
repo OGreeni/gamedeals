@@ -19,3 +19,7 @@ export const getUserProfile = async (req, res, next) => {
   console.log(dealsArray);
   res.status(200).json({ user, dealsArray });
 };
+
+// PRICE ALERTS -- CHEAKSHARK API
+// BUILD "GET NOTIFIED" MODAL -- USERS SET PRICE TO GET NOTIFIED OF DROPS
+// PROJECT DIRECTORY STRUCTURE

@@ -70,7 +70,7 @@ const DealCard = (props) => {
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      {dealSaved ? 'You will be notified of sales' : 'Get notified of sales'}
+      {dealSaved ? 'Game saved to account' : 'Save game to account'}
     </Tooltip>
   );
 
@@ -112,8 +112,3 @@ const DealCard = (props) => {
 };
 
 export default DealCard;
-
-// SAVE DEALS TO DB BY NAME
-// FETCH DEALS BY NAME, GET FIRST RESULT (INSTEAD OF PROBLEMATIC DEAL ID)
-// USE PROMISE.ALL() IN ACCOUNT API FETCH (BACKEND)
-// PROJECT DIRECTORY STRUCTURE

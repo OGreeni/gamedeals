@@ -1,0 +1,13 @@
+.info-modal-body {
+  font-size: 1.25rem;
+}
+
+.info-modal-price {
+  font-weight: bold;
+  color: rgb(4, 188, 255);
+}
+
+.info-modal-price:hover {
+  cursor: pointer;
+  color: rgb(1, 170, 232);
+}

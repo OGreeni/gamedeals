@@ -3,13 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import MainNav from './components/navigation/MainNav';
-import MainContent from './components/index/MainContent';
-import AboutContent from './components/about/AboutContent';
-import LoginForm from './components/login/LoginForm';
-import RegisterForm from './components/register/RegisterForm';
-import AccountContent from './components/account/AccountContent';
-import NotFound from './components/error/NotFound';
+import MainNav from './components/MainNav';
+import Index from './pages/Home/Index';
+import About from './pages/About';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Account from './pages/Account/Account';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -28,16 +28,16 @@ const App = () => {
       </Helmet>
       <MainNav />
       <Routes>
-        <Route path="/" element={<MainContent />} />
-        <Route path="/about" element={<AboutContent />} />
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
         {!isLoggedIn && (
           <>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </>
         )}
         {isLoggedIn && (
-          <Route path={`/account/${userId}`} element={<AccountContent />} />
+          <Route path={`/account/${userId}`} element={<Account />} />
         )}
         <Route path="*" element={<NotFound />} />
       </Routes>
