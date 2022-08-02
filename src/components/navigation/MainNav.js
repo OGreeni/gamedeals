@@ -79,9 +79,7 @@ const MainNav = () => {
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
-        className={
-          uiTheme === 'light' ? 'logout-modal-light' : 'logout-modal-dark'
-        }
+        className={uiTheme === 'light' ? 'modal-light' : 'modal-dark'}
       >
         <Modal.Header closeButton>
           <Modal.Title>Logout</Modal.Title>

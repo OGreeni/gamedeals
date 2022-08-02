@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Spinner, Container, Row, Card, Button } from 'react-bootstrap';
 
+import MoreInfoModal from './MoreInfoModal';
 import './AccountContent.css';
 
 // TODO: 'More Info' button navigates to a page with more information about the game, specifically the
@@ -12,10 +12,11 @@ const AccountContent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null); // {}
   const [savedDeals, setSavedDeals] = useState(null); // []
+  const [modalShow, setModalShow] = useState(false);
+  const [clickedDealInfo, setClickedDealInfo] = useState(null);
   const userId = useSelector((state) => state.auth.userId);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
   const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -46,39 +47,54 @@ const AccountContent = () => {
   if (userData) {
     savedDeals.filter((deal) => !Array.isArray(deal));
     return (
-      <Container>
-        <br />
-        <br />
-        <h1 className="account-title text-center">
-          <span className="account-username">{userData.username}</span>'s
-          Account Page
-        </h1>
-        <br />
-        <h2 className="account-favorites text-center">Saved games:</h2>
-        <br />
-        {savedDeals.length < 1 && (
-          <h4 className="account-favorites text-center">No games saved.</h4>
+      <>
+        <Container>
+          <br />
+          <br />
+          <h1 className="account-title text-center">
+            <span className="account-username">{userData.username}</span>'s
+            Account Page
+          </h1>
+          <br />
+          <h2 className="account-favorites text-center">Saved games:</h2>
+          <br />
+          {savedDeals.length < 1 && (
+            <h4 className="account-favorites text-center">No games saved.</h4>
+          )}
+          {savedDeals.length > 0 &&
+            savedDeals.map((deal, i) => (
+              <>
+                <Card
+                  body
+                  key={i}
+                  className={
+                    uiTheme === 'dark' ? 'account-card bg-dark' : 'account-card'
+                  }
+                >
+                  <Container className="card-content-container">
+                    {deal.gameInfo.name}
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setModalShow(true);
+                        setClickedDealInfo(deal);
+                      }}
+                    >
+                      More Info
+                    </Button>
+                  </Container>
+                </Card>
+              </>
+            ))}
+        </Container>
+        {clickedDealInfo && (
+          <MoreInfoModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            deal={clickedDealInfo}
+          />
         )}
-        {savedDeals.length > 0 &&
-          savedDeals.map((deal, i) => (
-            <>
-              <Card
-                body
-                key={i}
-                className={
-                  uiTheme === 'dark' ? 'account-card bg-dark' : 'account-card'
-                }
-              >
-                <Container className="card-content-container">
-                  {deal.gameInfo.name}
-                  <Button variant="secondary" onClick={() => navigate('/')}>
-                    More Info
-                  </Button>
-                </Container>
-              </Card>
-            </>
-          ))}
-      </Container>
+      </>
     );
   }
 };
