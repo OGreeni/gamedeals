@@ -9,25 +9,13 @@ export const getUserProfile = async (req, res, next) => {
   const savedDealsArray = user.savedDeals;
 
   let response;
-
   for (const deal of savedDealsArray) {
-    if (deal.dealId.length > decodeURIComponent(deal.dealId).length) {
-      response = await fetch(
-        `https://www.cheapshark.com/api/1.0/deals?id=${deal}`
-      );
-    } else {
-      response = await fetch(
-        `https://www.cheapshark.com/api/1.0/deals?id=${encodeURIComponent(
-          deal.dealId
-        )}`
-      );
-    }
-
+    response = await fetch(
+      `https://www.cheapshark.com/api/1.0/games?title=${deal.dealTitle}&&limit=1`
+    );
     const result = await response.json();
-    if (!Array.isArray(result)) {
-      dealsArray.push(result);
-    }
+    dealsArray.push(result);
   }
-
+  console.log(dealsArray);
   res.status(200).json({ user, dealsArray });
 };

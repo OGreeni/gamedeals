@@ -3,11 +3,12 @@ import mongoose from 'mongoose';
 import User from '../models/user.js';
 
 export const postSaveDeal = (req, res, next) => {
-  const dealId = req.query.dealId;
+  const dealTitle = req.query.dealTitle;
+  console.log(dealTitle);
   const userId = req.query.userId;
   User.findOneAndUpdate(
     { _id: mongoose.Types.ObjectId(userId) },
-    { $push: { savedDeals: { dealId } } }
+    { $push: { savedDeals: { dealTitle } } }
   )
     .then((result) => {
       res.status(200).json({ message: 'Deal saved successfully!' });
@@ -20,11 +21,11 @@ export const postSaveDeal = (req, res, next) => {
 };
 
 export const deleteDropDeal = (req, res, next) => {
-  const dealId = req.query.dealId;
+  const dealTitle = req.query.dealTitle;
   const userId = req.query.userId;
   User.findOneAndUpdate(
     { _id: mongoose.Types.ObjectId(userId) },
-    { $pull: { savedDeals: { dealId } } }
+    { $pull: { savedDeals: { dealTitle } } }
   )
     .then((result) => res.status(200).json({ result }))
     .catch((err) => {

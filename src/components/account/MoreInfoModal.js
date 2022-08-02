@@ -2,11 +2,18 @@ import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
+import './MoreInfoModal.css';
+
 const MoreInfoModal = (props) => {
   const uiTheme = useSelector((state) => state.theme.uiTheme);
 
-  const dealInfo = props.deal.gameInfo;
-  const date = new Date(dealInfo.releaseDate * 1000); // unix timestamp
+  const dealInfo = props.deal[0];
+
+  const cheapestRedirectHandler = () => {
+    window.open(
+      `https://www.cheapshark.com/redirect?dealID=${dealInfo.cheapestDealID}`
+    );
+  };
 
   const steamRedirectHandler = () => {
     window.open(
@@ -27,17 +34,12 @@ const MoreInfoModal = (props) => {
         <Modal.Title id="contained-modal-title-vcenter">Game Info</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>{dealInfo.name}</h4>
-        <p>
-          <ul>
-            <li>Release date: {date.toLocaleDateString('en-US')}</li>
-            {dealInfo.steamRatingText && (
-              <li>
-                Steam rating: {dealInfo.steamRatingText},{' '}
-                {dealInfo.steamRatingCount} reviews
-              </li>
-            )}
-          </ul>
+        <h4>{dealInfo.external}</h4>
+        <p className="info-modal-body">
+          Cheapest price (current):{' '}
+          <span className="info-modal-price" onClick={cheapestRedirectHandler}>
+            ${dealInfo.cheapest}
+          </span>
         </p>
       </Modal.Body>
       <Modal.Footer>

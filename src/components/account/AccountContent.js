@@ -45,6 +45,7 @@ const AccountContent = () => {
     );
   }
   if (userData) {
+    console.log(savedDeals);
     savedDeals.filter((deal) => !Array.isArray(deal));
     return (
       <>
@@ -72,7 +73,7 @@ const AccountContent = () => {
                   }
                 >
                   <Container className="card-content-container">
-                    {deal.gameInfo.name}
+                    {deal[0].external}
                     <Button
                       variant="secondary"
                       onClick={() => {
@@ -99,6 +100,3 @@ const AccountContent = () => {
   }
 };
 export default AccountContent;
-
-// ACCOUNT -- NOT LOADING SAVED GAMES
-// INDEX -- DOESN'T SHOW IF GAME WAS ALREADY SAVED

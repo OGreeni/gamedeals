@@ -25,7 +25,7 @@ const DealCard = (props) => {
 
   useEffect(() => {
     for (const deal of savedDealsArray) {
-      if (deal.dealId === dealId) {
+      if (deal.dealTitle === props.external) {
         setDealSaved(true);
       }
     }
@@ -38,7 +38,6 @@ const DealCard = (props) => {
       `https://www.cheapshark.com/redirect?dealID=${dealId}`,
       '_blank'
     );
-    console.log(dealId);
   };
 
   const saveDealHandler = async () => {
@@ -46,18 +45,24 @@ const DealCard = (props) => {
       return navigate('/login');
     }
     if (dealSaved) {
-      await fetch(`deals/remove-deal?userId=${userId}&dealId=${dealId}`, {
-        method: 'DELETE',
-      });
+      await fetch(
+        `deals/remove-deal?userId=${userId}&dealTitle=${props.external}`,
+        {
+          method: 'DELETE',
+        }
+      );
       setDealSaved(false);
       dispatch(dealsActions.saveDealUpdater());
     } else {
       // save
       console.log(userId);
       console.log(dealId);
-      await fetch(`deals/save-deal?userId=${userId}&dealId=${dealId}`, {
-        method: 'POST',
-      });
+      await fetch(
+        `deals/save-deal?userId=${userId}&dealTitle=${props.external}`,
+        {
+          method: 'POST',
+        }
+      );
       setDealSaved(true);
       dispatch(dealsActions.saveDealUpdater());
     }
@@ -110,6 +115,5 @@ export default DealCard;
 
 // SAVE DEALS TO DB BY NAME
 // FETCH DEALS BY NAME, GET FIRST RESULT (INSTEAD OF PROBLEMATIC DEAL ID)
-// USE PROMISE.ALL IN ACCOUNT API FETCH (BACKEND)
+// USE PROMISE.ALL() IN ACCOUNT API FETCH (BACKEND)
 // PROJECT DIRECTORY STRUCTURE
-// FIX PAGINATION (OR GET RID OF IT)

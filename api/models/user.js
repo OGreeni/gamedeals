@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   savedDeals: [
     {
-      dealId: {
+      dealTitle: {
         type: String,
         required: true,
       },
