@@ -10,26 +10,14 @@ const FetchDeals = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [savedDealsArray, setSavedDealsArray] = useState([]);
   const [curPage, setCurPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(null);
   const formUserInput = useSelector((state) => state.deals.userInput);
   const userId = useSelector((state) => state.auth.userId);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const uiTheme = useSelector((state) => state.theme.uiTheme);
+
+  // eslint-disable-next-line
   const saveDealUpdater = useSelector((state) => state.deals.saveDealUpdater);
   const increment = 5;
-
-  const paginationPrevHandler = () => {
-    if (curPage !== 1) {
-      setCurPage((prevState) => prevState - 1);
-    }
-  };
-
-  const paginationNextHandler = () => {
-    if (curPage < maxPage) {
-      setCurPage((prevState) => prevState + 1);
-    }
-  };
-  console.log(maxPage);
 
   useEffect(() => {
     setIsLoading(true);
@@ -41,7 +29,6 @@ const FetchDeals = () => {
           `https://www.cheapshark.com/api/1.0/games?title=${formUserInput}&limit=60&exact=0`
         );
         setDealsArray(await res1.json());
-        setMaxPage(Math.floor(dealsArray.length / 5));
       }
 
       if (isLoggedIn) {
@@ -54,6 +41,8 @@ const FetchDeals = () => {
       setIsLoading(false);
     };
     fetchData();
+
+    // eslint-disable-next-line
   }, [formUserInput]);
 
   if (isLoading) {
@@ -64,7 +53,7 @@ const FetchDeals = () => {
     );
   }
   if (savedDealsArray) {
-    // FIX PAGINATION
+    const maxPage = Math.ceil(dealsArray.length / increment);
     return (
       <>
         {dealsArray
@@ -91,12 +80,20 @@ const FetchDeals = () => {
             >
               <Pagination.Prev
                 className="pagination-btn"
-                onClick={paginationPrevHandler}
+                onClick={() => {
+                  if (curPage > 1) {
+                    setCurPage((prevState) => prevState - 1);
+                  }
+                }}
               />
               <Pagination.Item>{curPage}</Pagination.Item>
               <Pagination.Next
                 className="pagination-btn"
-                onClick={paginationNextHandler}
+                onClick={() => {
+                  if (curPage < maxPage) {
+                    setCurPage((prevState) => prevState + 1);
+                  }
+                }}
               />
             </Pagination>
           </Container>

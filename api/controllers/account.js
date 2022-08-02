@@ -8,12 +8,20 @@ export const getUserProfile = async (req, res, next) => {
   const user = await User.findOne({ _id: mongoose.Types.ObjectId(userId) });
   const savedDealsArray = user.savedDeals;
 
+  let response;
+
   for (const deal of savedDealsArray) {
-    const response = await fetch(
-      `https://www.cheapshark.com/api/1.0/deals?id=${encodeURIComponent(
-        deal.dealId
-      )}`
-    );
+    if (deal.dealId.length > decodeURIComponent(deal.dealId).length) {
+      response = await fetch(
+        `https://www.cheapshark.com/api/1.0/deals?id=${deal}`
+      );
+    } else {
+      response = await fetch(
+        `https://www.cheapshark.com/api/1.0/deals?id=${encodeURIComponent(
+          deal.dealId
+        )}`
+      );
+    }
 
     const result = await response.json();
     if (!Array.isArray(result)) {

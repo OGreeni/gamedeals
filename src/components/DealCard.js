@@ -29,6 +29,8 @@ const DealCard = (props) => {
         setDealSaved(true);
       }
     }
+
+    // eslint-disable-next-line
   }, [savedDealsArray]);
 
   const goToSiteHandler = () => {
@@ -36,6 +38,7 @@ const DealCard = (props) => {
       `https://www.cheapshark.com/redirect?dealID=${dealId}`,
       '_blank'
     );
+    console.log(dealId);
   };
 
   const saveDealHandler = async () => {
@@ -104,3 +107,9 @@ const DealCard = (props) => {
 };
 
 export default DealCard;
+
+// SAVE DEALS TO DB BY NAME
+// FETCH DEALS BY NAME, GET FIRST RESULT (INSTEAD OF PROBLEMATIC DEAL ID)
+// USE PROMISE.ALL IN ACCOUNT API FETCH (BACKEND)
+// PROJECT DIRECTORY STRUCTURE
+// FIX PAGINATION (OR GET RID OF IT)
