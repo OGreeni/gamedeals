@@ -1,0 +1,22 @@
+.navbar-brand:hover {
+  cursor: pointer;
+}
+
+img {
+  width: 50px;
+  margin-right: 0.5rem;
+}
+
+.register-link {
+  font-weight: 500;
+  color: black;
+}
+
+.register-link:hover {
+  font-weight: 500;
+  color: rgb(50, 50, 50);
+}
+
+.modal-dark .modal-content {
+  background: rgb(50, 50, 50);
+}
