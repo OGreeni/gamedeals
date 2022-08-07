@@ -45,8 +45,9 @@ const Account = () => {
     );
   }
   if (userData) {
-    console.log(savedDeals);
-    savedDeals.filter((deal) => !Array.isArray(deal));
+    const alertedDeals = userData.savedDeals
+      .filter((deal) => deal.priceAlerts)
+      .map((deal) => deal.dealTitle);
     return (
       <>
         <Container>
@@ -73,16 +74,25 @@ const Account = () => {
                   }
                 >
                   <Container className="card-content-container">
-                    {deal[0].external}
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        setModalShow(true);
-                        setClickedDealInfo(deal);
-                      }}
-                    >
-                      More Info
-                    </Button>
+                    <div>{deal[0].external}</div>
+                    <div>
+                      <NotifyButton
+                        gameData={deal[0]}
+                        initialState={
+                          alertedDeals.includes(deal[0].external) ? true : false
+                        }
+                      />
+                      <Button
+                        className="more-info-btn"
+                        variant="secondary"
+                        onClick={() => {
+                          setModalShow(true);
+                          setClickedDealInfo(deal);
+                        }}
+                      >
+                        More Info
+                      </Button>
+                    </div>
                   </Container>
                 </Card>
               </>
