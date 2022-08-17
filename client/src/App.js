@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 
 import MainNav from './components/MainNav';
 import Index from './pages/Home/Index';
-import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Account from './pages/Account/Account';
@@ -29,7 +28,6 @@ const App = () => {
       <MainNav />
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/about" element={<About />} />
         {!isLoggedIn && (
           <>
             <Route path="/login" element={<Login />} />

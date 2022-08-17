@@ -55,7 +55,6 @@ const MainNav = () => {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Link onClick={githubClickHandler}>GitHub</Nav.Link>
-            <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
             {!isLoggedIn && (
               <Nav.Link onClick={() => navigate('/register')}>
                 Register
