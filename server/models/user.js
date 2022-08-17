@@ -26,6 +26,10 @@ const userSchema = new Schema({
         type: String,
         required: true,
       },
+      priceAlerts: {
+        type: Boolean,
+        required: true,
+      },
     },
   ],
 });
