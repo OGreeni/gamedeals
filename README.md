@@ -5,7 +5,7 @@
 GameDeals is a simple web app, built with React, Node.js, and MongoDB. It compares prices of video games across multiple online providers.
 
 ## How is the data gathered?
-The game data was gathered using the public CheapShark API. You can read more about it [here](https://apidocs.cheapshark.com/).
+The game data was gathered using the public CheapShark API. You can learn more about it [here](https://apidocs.cheapshark.com/).
 The API ensures that the prices are always accurate and updated.
 
 ## Get notified of sales through email
